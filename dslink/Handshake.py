@@ -47,8 +47,10 @@ class Handshake:
                 server_config = json.loads(response.text)
                 self.link.server_config = server_config
                 self.link.logger.debug("Server handshake body: %s" % json.dumps(server_config))
-                if server_config["format"] is not None:
+                if "format" in self.link.server_config and server_config["format"] is not None:
                     self.link.config.comm_format = server_config["format"]
+                else:
+                    self.link.config.comm_format = "json"
                 if "tempKey" in self.link.server_config:
                     self.link.needs_auth = True
                     tempkey = self.keypair.keypair.decode_tempkey(
