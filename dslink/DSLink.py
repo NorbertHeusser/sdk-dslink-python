@@ -194,10 +194,11 @@ class Configuration:
             raise ValueError("DSLink must be either a responder or requester")
         parser = argparse.ArgumentParser()
         parser.add_argument("--broker", default="http://localhost:8080/conn")
+        parser.add_argument("--name", default=name)
         parser.add_argument("--log", default="info")
         parser.add_argument("--token")
         args = parser.parse_args()
-        self.name = name
+        self.name = args.name
         self.dsid = None
         self.broker = args.broker
         self.log_level = getattr(logging, args.log.upper(), logging.NOTSET)
